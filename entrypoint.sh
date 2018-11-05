@@ -8,13 +8,13 @@ export INTERNAL_IP=`ip route get 1 | awk '{print $NF;exit}'`
 if [ ! -z ${SRCDS_APPID} ]; then
     if [ ! -z ${SRCDS_BETAID} ]; then
         if [ ! -z ${SRCDS_BETAPASS} ]; then
-            ./steamcmd/steamcmd.sh +login anonymous +force_install_dir /home/container +app_update ${SRCDS_APPID} -beta ${SRCDS_BETAID} -betapassword ${SRCDS_BETAPASS} +quit
+            ./steamcmd/steamcmd.sh +login anonymous +force_install_dir /home/container +app_update 4020 -beta ${SRCDS_BETAID} -betapassword ${SRCDS_BETAPASS} +quit
         else
-            ./steamcmd/steamcmd.sh +login anonymous +force_install_dir /home/container +app_update ${SRCDS_APPID} -beta ${SRCDS_BETAID} +quit
+            ./steamcmd/steamcmd.sh +login anonymous +force_install_dir /home/container +app_update 4020 -beta ${SRCDS_BETAID} +quit
         fi
     else
-        ./steamcmd/steamcmd.sh +login anonymous +force_install_dir /home/container +app_update 740 +quit
-        ./steamcmd/steamcmd.sh +login anonymous +force_install_dir /home/container +app_update ${SRCDS_APPID} +quit
+        ./steamcmd/steamcmd.sh +login anonymous +force_install_dir /home/container/css +app_update 232330 +quit
+        ./steamcmd/steamcmd.sh +login anonymous +force_install_dir /home/container +app_update 4020 +quit
     fi
 fi
 
