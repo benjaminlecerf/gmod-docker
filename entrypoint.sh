@@ -1,14 +1,21 @@
 #!/bin/bash
 cd /home/container
-
+sleep 1
 # Make internal Docker IP address available to processes.
 export INTERNAL_IP=`ip route get 1 | awk '{print $NF;exit}'`
 
 # Update Source Server
 if [ ! -z ${SRCDS_APPID} ]; then
-    ./steamcmd/steamcmd.sh +login anonymous +force_install_dir /home/container +app_update 740 +quit
-    #install cs:go
-    ./steamcmd/steamcmd.sh +login anonymous +force_install_dir /csgo +app_update ${SRCDS_APPID} +quit
+    if [ ! -z ${SRCDS_BETAID} ]; then
+        if [ ! -z ${SRCDS_BETAPASS} ]; then
+            ./steamcmd/steamcmd.sh +login anonymous +force_install_dir /home/container +app_update ${SRCDS_APPID} -beta ${SRCDS_BETAID} -betapassword ${SRCDS_BETAPASS} +quit
+        else
+            ./steamcmd/steamcmd.sh +login anonymous +force_install_dir /home/container +app_update ${SRCDS_APPID} -beta ${SRCDS_BETAID} +quit
+        fi
+    else
+        ./steamcmd/steamcmd.sh +login anonymous +force_install_dir /home/container +app_update 740 +quit
+        ./steamcmd/steamcmd.sh +login anonymous +force_install_dir /home/container +app_update ${SRCDS_APPID} +quit
+    fi
 fi
 
 # Replace Startup Variables
